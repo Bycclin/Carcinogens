@@ -9,6 +9,8 @@ class cell:
         self.point = dynamicPoint(self.x, self.y)
         self.vx = 0
         self.vy = 0
+        self.ID = 0
+        self.highlighted = False
         
     
     def draw(self, screen):
@@ -27,5 +29,7 @@ class cell:
         
         self.vx *= 0.8
         self.vy *= 0.8
+    def __str__(self):
+        return f"cell({self.x}, {self.y}, {self.radius})"
         
         

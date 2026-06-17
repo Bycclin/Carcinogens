@@ -53,4 +53,3 @@ class Player:
 
         constants.SCROLL_X += ((self.x-constants.CENTER_X) - constants.SCROLL_X)/4
         constants.SCROLL_Y += ((self.y-constants.CENTER_Y) - constants.SCROLL_Y)/4
-

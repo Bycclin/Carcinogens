@@ -1,13 +1,14 @@
 from cell import *
 from constants import *
-from main import *
 from Player import *
 
 class Level:
-    pass
+    def __init__(self):
+        self.contents = []
 
 class one(Level):
-    pass
+    def __init__(self):
+        self.contents = [] # create list of all cells in given level to load it in
 
 class two(Level):
     pass
