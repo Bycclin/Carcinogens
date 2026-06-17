@@ -1,14 +1,20 @@
 
+import pygame
 import random
 from Player import *
 from constants import *
 from cell import *
 import levels
 
+
 pygame.init()
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill("black")
 pygame.display.flip()
+
+
+
 
 cells = []
 
@@ -27,7 +33,7 @@ def cell_push_apart():
                 if distance < this.radius+other.radius:
                     ux = dx/distance
                     uy = dy/distance
-                    overlap = abs(other.radius-this.radius)
+                    overlap = other.radius + this.radius - distance
                     fx = this.x - ux*overlap
                     fy = this.y - uy*overlap
                     
@@ -43,7 +49,7 @@ def cell_push_apart():
         if distance < this.radius+other.radius:
             ux = dx/distance
             uy = dy/distance
-            overlap = abs(50-this.radius)
+            overlap = 50 + this.radius - distance
             fx = this.x - ux*overlap
             fy = this.y - uy*overlap 
             this.x += (fx-this.x)/4
@@ -68,17 +74,24 @@ def new_cell(x, y, r):
     cells.append(new)
 
 def createCellBox():
-        for i in range(-200, 1000, 40):
-            new_cell(-200+random.randint(-10, 10), i+random.randint(-10, 10), random.randint(30, 50))
-            new_cell(1000+random.randint(-10, 10), i+random.randint(-10, 10), random.randint(30, 50))
-        for i in range(-200, 1000, 40):
-            new_cell(i+random.randint(-10, 10), -200+random.randint(-10, 10), random.randint(30, 50))
-            new_cell(i+random.randint(-10, 10), 1000+random.randint(-10, 10), random.randint(30, 50))
+        widthLow = -200
+        widthHigh = 1000
+        heightLow = -200
+        heightHigh = 1000
+        for i in range(widthLow, widthHigh, 40):
+            new_cell(widthLow+random.randint(-10, 10), i+random.randint(-10, 10), random.randint(30, 50))
+            new_cell(widthHigh+random.randint(-10, 10), i+random.randint(-10, 10), random.randint(30, 50))
+        for i in range(heightLow, heightHigh, 40):
+            new_cell(i+random.randint(-10, 10), heightLow+random.randint(-10, 10), random.randint(30, 50))
+            new_cell(i+random.randint(-10, 10), heightHigh+random.randint(-10, 10), random.randint(30, 50))
+        
+
+        for i in range(50):
+            pass
         
 
 
-new_cell(CENTER_X, 50, 30)
-new_cell(50, CENTER_Y, 50)
+
 
 
 player = Player(CENTER_X+100, CENTER_Y)
@@ -88,11 +101,19 @@ l3 = levels.three()
 l4 = levels.four()
 l5 = levels.five()
 
+#render player image
+player_image = pygame.image.load("/Users/enzogleichauf/Documents/whitebloodcell.png")
+def render_player():
+    img_width = 100
+    img_height = 100
 
+    transformed = pygame.transform.scale(player_image, (img_width, img_height))
+    screen.blit(transformed, (player.point.x-img_width/2, player.point.y-img_width/2))
 
 createCellBox()
 clock = pygame.time.Clock()
 running = True
+time = 0
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -101,12 +122,16 @@ while running:
     clock.tick(60)
     screen.fill("white")
     player.draw(screen)
+
+    render_player()
+
     player.update_controls()
     update_cells()
     cell_push_apart()
     
     pygame.display.flip()
-
+    
 
 pygame.quit()
+
 
