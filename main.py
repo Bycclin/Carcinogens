@@ -105,8 +105,8 @@ def createCellBox():
             new_cell(i+random.randint(-10, 10), heightHigh+random.randint(-10, 10), random.randint(30, 50))
         
 
-        for i in range(50):
-            pass
+        #for i in range(50):
+        #    pass
         
 
 
@@ -121,7 +121,7 @@ l4 = levels.four()
 l5 = levels.five()
 
 #render player image
-PLAYER_IMAGE = pygame.image.load("/Users/enzogleichauf/Documents/whitebloodcell.png")
+PLAYER_IMAGE = pygame.image.load("./whitebloodcell.png")
 def render_player():
     
     img_width = 100
@@ -130,8 +130,8 @@ def render_player():
     transformed = pygame.transform.scale(PLAYER_IMAGE, (img_width, img_height))
     screen.blit(transformed, (player.point.x-img_width/2, player.point.y-img_width/2))
 
-CELL_NORMAL = pygame.image.load("/Users/enzogleichauf/Documents/cancer-project/costume2.png")
-CELL_RED = pygame.image.load("/Users/enzogleichauf/Documents/cancer-project/red (1).png")
+CELL_NORMAL = pygame.image.load("./costume2.png")
+CELL_RED = pygame.image.load("./red (1).png")
 def render_cell(x, y, r, id, highlight : bool):
     
     img_width = 100
@@ -156,7 +156,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
-    clock.tick(60)
+    clock.tick(1600)
     screen.fill("white")
     player.draw(screen)
 
