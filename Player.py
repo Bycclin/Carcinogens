@@ -3,6 +3,7 @@ from dynamicPoint import *
 import constants
 
 
+r = 50
 
 class Player:
     def __init__(self, x, y):
@@ -11,20 +12,46 @@ class Player:
         self.vx = 0
         self.vy = 0
         self.forward_speed = 0
-        self.direction = 0
+        self.direction = 0 #direction in degrees of forward vector
         self.point = dynamicPoint(self.x, self.y)
         
+        
 
-        self.dev_shape = pygame.Rect(self.point.x-20, self.point.y-30, 40, 60)
+        self.rect = pygame.Rect(x-r, y-r, r*2, r*2)
+        self.bigRect = pygame.Rect(x-r*2, y-r*2, r*4, r*4)
+    
+    def updateForwardVector(self):
+        real_direction = -(math.atan2(self.vy, self.vx)*180/math.pi)
+        self.direction += real_direction - self.direction/10
+
+
+
+
     def draw(self, screen):
-        pygame.draw.circle(screen, "red", (self.point.x, self.point.y), 20, 2)
+        img_width = r*2
+        img_height = r*2
+
+        transformed = pygame.transform.scale(constants.PLAYER_IMAGE, (img_width, img_height))
+        transformed = pygame.transform.scale(transformed, (img_width+math.sqrt(self.vx**2+self.vy**2)*3, img_height-math.sqrt(self.vx**2+self.vy**2)*3))
+        transformed = pygame.transform.rotate(transformed, self.direction)
+        screen.blit(transformed, (self.point.x-img_width/2, self.point.y-img_width/2))
+
+
+
+
+        """pygame.draw.circle(screen, "red", (self.point.x, self.point.y), 20, 2)
         pygame.draw.line(screen, "red", (self.dev_shape.left, self.dev_shape.top), (self.dev_shape.right, self.dev_shape.bottom), 2)
         pygame.draw.line(screen, "red", (self.dev_shape.right, self.dev_shape.top), (self.dev_shape.left, self.dev_shape.bottom), 2)
+        pygame.draw.line(screen, "red", (self.point.x, self.point.y), (self.point.x+50*math.sin(self.direction), self.point.y+50*math.cos(self.direction)))"""
         
         
 
 
     def update_controls(self):
+        if self.vy>0 and self.vx>0:
+            self.direction = math.atan2(self.vy, self.vx)
+        else:
+            self.direction = 0
         
         #global SCROLL_X
         #global SCROLL_Y
@@ -38,15 +65,15 @@ class Player:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
             
-            self.vy -= 1
+            self.vy -= PLAYER_SPEED
         elif keys[pygame.K_DOWN]:
            
-            self.vy += 1
+            self.vy += PLAYER_SPEED
         
         if keys [pygame.K_LEFT]:
-            self.vx -= 1
+            self.vx -= PLAYER_SPEED
         elif keys[pygame.K_RIGHT]:
-            self.vx += 1
+            self.vx += PLAYER_SPEED
         
         self.vx *= 0.9
         self.vy *= 0.9
