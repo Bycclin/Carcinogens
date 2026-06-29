@@ -25,6 +25,8 @@ CELL_RED = pygame.image.load("./cell_red.png")
 
 PLAYER_IMAGE = pygame.image.load("./player.png")
 
+TOP_TITLE_THINGY_IMAGE = pygame.image.load("./thingy.png")
+
 #player settings
 PLAYER_SPEED = 1
 
