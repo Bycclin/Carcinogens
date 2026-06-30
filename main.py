@@ -763,7 +763,7 @@ def gradual_text(text: str, x, y,):
 playButton = ui.button(CENTER_X, 500, 300, 100, "Start")
 quitButton = ui.button(CENTER_X, HEIGHT-100, 200, 50, "quit")
 
-title = constants.GAME_FONT.render("CANCER GAME THING", True, "white")
+title = constants.GAME_FONT.render("Echoes of The Cells", True, "white")
 
 
 title_screen_new_cell_event = pygame.USEREVENT + 1
