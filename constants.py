@@ -27,6 +27,10 @@ PLAYER_IMAGE = pygame.image.load("./player.png")
 
 TOP_TITLE_THINGY_IMAGE = pygame.image.load("./thingy.png")
 
+#ui graphics assets
+
+UI_CONTAINER_IMAGE = pygame.image.load("./ui2.png")
+
 #player settings
 PLAYER_SPEED = 1
 
@@ -37,5 +41,7 @@ GAME_FONT = pygame.font.Font("./GoogleSans-VariableFont_GRAD,opsz,wght.ttf", 50)
 #video assets
 
 OPENING_CUTSCENE = Video("./cancergameopening_resized.mp4")
+
+#levels
 
 
