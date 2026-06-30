@@ -450,10 +450,30 @@ background_music = pygame.mixer.music.load("5462458621362176.wav")
 pygame.mixer.music.play(loops=-1, fade_ms=2000)
 
 #do slide sequence
+##AI!!
+def helper(text):
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                raise SystemExit
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    waiting = False 
+        screen.fill(BG_COLOR)
+        gradual_text(text, CENTER_X - 400, 200)
+        pygame.display.flip()
+        clock.tick(60) 
+    screen.fill(BG_COLOR)
+    pygame.display.flip()
 
-
-
-
+helper("You are a white blood cell\n\n       enter to continue")
+helper("Your job is to kill cancer cells\n\n       enter to continue")
+helper("Use WASD to move around\n\n       enter to continue")
+helper("Click on cells to kill them.\n\n       enter to continue")
+# Fixed this line to match your 2-argument helper structure
+helper("Good luck!\n\n       enter to continue") 
 
 
 
